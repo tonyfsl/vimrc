@@ -9,16 +9,14 @@ Plug 'godlygeek/tabular'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
-Plug 'w0rp/ale'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'raimondi/delimitmate' 
 Plug 'ryanoasis/vim-devicons'     
 Plug 'tpope/vim-surround'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tpope/vim-repeat'
 
 call plug#end()    
 
@@ -26,8 +24,6 @@ call plug#end()
 "----------------------------------------------------------------------------
 "                                plugin settings
 "----------------------------------------------------------------------------
-
-let mapleader=','         
 
 " NERDTree
 nnoremap <Leader>nn :NERDTreeToggle<CR>
@@ -44,17 +40,17 @@ let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 
  	
 " vim-airline
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#show_buffers = 1
-" let g:airline#extensions#tabline#left_sep = '|'
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline_left_sep = '|'
-" let g:airline_left_alt_sep = '|'
-" let g:airline_right_sep = '|'
-" let g:airline_right_alt_sep = '|'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#left_sep = '|'
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep = '|'
+let g:airline_left_alt_sep = '|'
+let g:airline_right_sep = '|'
+let g:airline_right_alt_sep = '|'
 
 " vim-airline-themes 
-let g:airline_theme='gruvbox'
+let g:airline_theme='molokai'
 
 
 " delimitmate
@@ -73,16 +69,11 @@ let g:ctrlp_custom_ignore = {
     \ 'link': 'some_bad_symbolic_links',
     \ }
 
-" bufexplorer
+"bufexplorer
 let g:bufExplorerDefaultHelp=0
 let g:bufExplorerShowRelativePath=1
 let g:bufExplorerFindActive=1
 let g:bufExplorerSortBy='name'
 nmap <leader>o :BufExplorer<cr>
 
-" lightline
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ }
-===============================================================================
-vim:ft=vim
+
