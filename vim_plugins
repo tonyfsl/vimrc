@@ -9,14 +9,16 @@ Plug 'godlygeek/tabular'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'raimondi/delimitmate' 
 Plug 'ryanoasis/vim-devicons'     
 Plug 'tpope/vim-surround'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tpope/vim-repeat'
 
 call plug#end()    
 
@@ -25,7 +27,9 @@ call plug#end()
 "                                plugin settings
 "----------------------------------------------------------------------------
 
-" NERDTree
+let mapleader=','         
+
+" NERDTree {{{1
 nnoremap <Leader>nn :NERDTreeToggle<CR>
 let NERDTreeChDirMode=2
 let NERDTreeShowHidden=1
@@ -37,26 +41,27 @@ let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1         " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-
+" }}}1
  	
-" vim-airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#left_sep = '|'
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep = '|'
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = '|'
-let g:airline_right_alt_sep = '|'
+" vim-airline {{{1
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#show_buffers = 1
+" let g:airline#extensions#tabline#left_sep = '|'
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline_left_sep = '|'
+" let g:airline_left_alt_sep = '|'
+" let g:airline_right_sep = '|'
+" let g:airline_right_alt_sep = '|'
 
 " vim-airline-themes 
-let g:airline_theme='molokai'
+" let g:airline_theme='gruvbox'
+" }}}1
 
-
-" delimitmate
+" delimitmate {{{1
 let delimitMate_matchpairs = "(:),[:],{:}"
+" }}}1
 
-" ctrlp
+" ctrlp {{{1
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'rc'
@@ -68,12 +73,21 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'some_bad_symbolic_links',
     \ }
+" }}}1
 
-"bufexplorer
+" bufexplorer {{{1
 let g:bufExplorerDefaultHelp=0
 let g:bufExplorerShowRelativePath=1
 let g:bufExplorerFindActive=1
 let g:bufExplorerSortBy='name'
 nmap <leader>o :BufExplorer<cr>
+" }}}1
 
+" lightline {{{1
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ }
+" }}}1
 
+-------------------------------------------------------------------------------
+ vim:ft=vim

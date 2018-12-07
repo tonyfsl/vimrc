@@ -23,25 +23,27 @@ try
 catch
 endtry
 
-
 " ---------------------------------------------------------------------------
-"                            GENERAL SETTINGS
+"                            GENERAL SETTINGS {{{1
 " ---------------------------------------------------------------------------
 
 let mapleader=','         
 
-" Set filetype stuff to on
-filetype on
-filetype plugin on
-filetype indent on
+" Some basic settings
+set nocp
+filetype plugin indent on
 syntax on               
 
 " Add the unnamed register to the clipboard
 set clipboard+=unnamed
-set nofoldenable          
+
+" Fold settings
+set foldenable          
+set fdm=marker
 
 " These commands open folds
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
+
 set backspace=indent,eol,start  
 set whichwrap+=h,l,<,>,[,]      
 set virtualedit=block,onemore   
@@ -74,10 +76,11 @@ set noshowmode
 set showcmd               
 set history=100
 set wildmenu              
+
 " Types of files to ignore when autocompleting things
 set wildignore+=*.o,*.class,*.git,*.svn
-" Switch between buffers without having to save first
 
+" Switch between buffers without having to save first
 set hidden
 set autoread              
 set autowrite             
@@ -88,11 +91,17 @@ set timeoutlen=700
 if has("autocmd")
     autocmd! bufwritepost .vimrc source ~\.vimrc
 endif
-
+" }}}1	
 
 " ---------------------------------------------------------------------------
-"                            KEY MAPPING
+"                            KEY MAPPING {{{1
 " ---------------------------------------------------------------------------
+" Change the basic save and quit keys
+nmap <Leader>q :q<CR>
+nmap <Leader>w :w<CR>
+nmap <Leader>WQ :wa<CR>:q<CR>
+nmap <Leader>Q :qa!<CR>
+
 " Navigation Between Windows
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
@@ -169,46 +178,50 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
+" }}}1	
+
 " ---------------------------------------------------------------------------
-"                            VISUAL SETTINGS
+"                            VISUAL SETTINGS {{{1
 " ---------------------------------------------------------------------------
+
+try
+    colorscheme gruvbox
+catch
+endtry
+
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+let $LANG='en_US.uft-8' 
+set langmenu=zh_CN
 
 set tw=84
 
 " GUI 
-set guioptions+=T
+set guioptions-=T
 set guioptions-=m
 set guioptions-=L
 set guioptions-=r
 set guioptions-=b
 
-if has("gui_running") || has("unix")
-    set encoding=utf-8 
-    lang messages zh_CN.UTF-8 " fix consle garbled characters
+" Use the non-GUI tab pages line
+set guioptions-=e
+
+" Config the windows visual setting
+if has("win32")
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    language messages zh_CN.utf-8
     set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-    set guifont=Inconsolata\ NF:h14
-set guifontwide=KaiTi:h15
-set lines=35 columns=100
-else
-    set encoding=chinese 
-    set termencoding=chinese     
+    set guifont=CodeNewRoman\ NF:h14
+    set guifontwide=KaiTi:h15
+    set lines=35 columns=88
 endif
 
-" Set up the gui cursor to look nice
-set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-	
-" Colors and fonts
+
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-try
-    colorscheme molokai
-catch
-endtry
+" Set up the GUI cursor to look nice
+set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+" }}}1	
