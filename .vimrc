@@ -1,8 +1,8 @@
 " ---------------------------------------------------------------------------
-"  Author:tonyfsl
+"  Author:tonyfsl   <tonyviper@gmail.com>
 "  The primary version was completed on May 27th 2018
 "
-"  Some ideas was generated from dofy/7th-vim, Derek Wyatt and amix/vimrc
+"  Some functions were copied from dofy/7th-vim, Derek Wyatt and amix/vimrc
 " ---------------------------------------------------------------------------
 
 
@@ -30,67 +30,62 @@ endtry
 let mapleader=','         
 
 " Some basic settings
-set nocp
-filetype plugin indent on
-syntax on               
+set nocompatible
+filetype plugin indent on " 开启文件类型检测
+syntax on                 " 开启语法高亮
 
-" Add the unnamed register to the clipboard
-set clipboard+=unnamed
+set clipboard+=unnamed  " 可以直接粘贴剪贴板内容
 
-" Fold settings
-set foldenable          
-set fdm=marker
+set foldenable        " 默认开启代码折叠
+set foldmethod=marker " 折叠类型
 
 " These commands open folds
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
-set backspace=indent,eol,start  
-set whichwrap+=h,l,<,>,[,]      
-set virtualedit=block,onemore   
+set backspace=indent,eol,start " 智能回删
+set whichwrap+=h,l,<,>,[,]     " 光标循环
+set virtualedit=block,onemore  " 允许光标出现在最后一个字符的后面
 
-set number                
-set relativenumber        
-set ruler                 
+set number         " 显示行号          
+set relativenumber " 显示相对行号      
+set ruler          " 显示标尺信息
 
 " Tab and indent 
-set expandtab             
-set smartindent           
-set autoindent
-set smarttab
-set softtabstop=4         
-set shiftwidth=4          
+set expandtab      " Tab 替换为空格
+set smartindent    " 智能缩进
+set softtabstop=4  " Tab 缩进单位
+set shiftwidth=4   " 自动缩进单位
 
-set encoding=utf-8        
-set t_Co=256              
-set background=dark
-set lbr
+set encoding=utf-8 " UTF-8 编码
+set t_Co=256       " 开启256色(若终端支持)
 
-set ignorecase            
-set incsearch             
-set hlsearch              
+set ignorecase     " 搜索忽略大小写
+set incsearch      " 搜索实时高亮
+set hlsearch
 set smartcase
 
-set scrolloff=5           
-set laststatus=2          
-set noshowmode            
-set showcmd               
-set history=100
-set wildmenu              
+set linebreak      " 自动折行
+set scrolloff=5    " 屏幕顶/底部保持 5 行文本
+set laststatus=2   " 显示状态栏
+set noshowmode     " 不显示当前状态
+set showcmd        " 显示输入的命令
+set history=200    " 历史命令保存条数
+set autoread       " 自动加载外部修改
+set confirm        " 弹出文件未保存确认
 
+set wildmenu       " Vim 命令行提示
 " Types of files to ignore when autocompleting things
 set wildignore+=*.o,*.class,*.git,*.svn
 
 " Switch between buffers without having to save first
 set hidden
-set autoread              
-set autowrite             
-set confirm               
-set timeoutlen=700        
+set timeoutlen=700      " 操作符待决等待时间
 
 " Reload the vim settings immediately after the changing has been made
-if has("autocmd")
-    autocmd! bufwritepost .vimrc source ~\.vimrc
-endif
+" Seems not working perfect while having more than one vimrc files
+" if has("autocmd")
+"     autocmd! bufwritepost .vimrc source ~\.vimrc
+" endif
 " }}}1	
 
 " ---------------------------------------------------------------------------
@@ -152,8 +147,9 @@ try
 catch
 endtry
 
-" Make it easy to open vimrc file
+" Make it easy to open/reload vimrc file
 nmap <silent> <leader>ev :e ~/.vimrc<CR>
+nmap <silent> <leader>sv :so ~/.vimrc<CR>
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -185,20 +181,17 @@ endfunction
 " ---------------------------------------------------------------------------
 
 try
-    colorscheme gruvbox
+    colorscheme solarized
 catch
 endtry
+set background=dark
 
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en_US.uft-8' 
-set langmenu=zh_CN
+set textwidth=84
 
-set tw=84
-
-" GUI 
+" Hide GUI scroll bars
 set guioptions-=T
 set guioptions-=m
-set guioptions-=L
+set guioptions-=L 
 set guioptions-=r
 set guioptions-=b
 
@@ -211,16 +204,15 @@ if has("win32")
     source $VIMRUNTIME/menu.vim
     language messages zh_CN.utf-8
     set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-    set guifont=CodeNewRoman\ NF:h14
-    set guifontwide=KaiTi:h15
+"   set guifont=IBM\ Plex\ Mono:h12
+    set guifont=CodeNewRoman\ NF:h12
+    set guifontwide=YaHei\ Consolas\ Hybrid:h12
     set lines=35 columns=88
 endif
 
-
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
+" Avoid garbled characters in Chinese language windows OS
+" let $LANG='en_US.utf-8' 
+" set langmenu=zh_CN
 
 " Set up the GUI cursor to look nice
 set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175

@@ -5,20 +5,21 @@
 call plug#begin('~/.vim/plugged')
 
 " Plug 'VundleVim/Vundle.vim'
-Plug 'godlygeek/tabular'
+" Plug 'godlygeek/tabular'
+" Plug 'itchyny/lightline.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'junegunn/vim-easy-align'
 Plug 'plasticboy/vim-markdown'
-Plug 'scrooloose/nerdtree'
-Plug 'w0rp/ale'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
 Plug 'raimondi/delimitmate' 
 Plug 'ryanoasis/vim-devicons'     
-Plug 'tpope/vim-surround'
-Plug 'jlanzarotta/bufexplorer'
+Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 
 call plug#end()    
 
@@ -44,17 +45,16 @@ let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " }}}1
  	
 " vim-airline {{{1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#show_buffers = 1
-" let g:airline#extensions#tabline#left_sep = '|'
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline_left_sep = '|'
-" let g:airline_left_alt_sep = '|'
-" let g:airline_right_sep = '|'
-" let g:airline_right_alt_sep = '|'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 
 " vim-airline-themes 
-" let g:airline_theme='gruvbox'
+let g:airline_theme='solarized'
 " }}}1
 
 " delimitmate {{{1
@@ -84,10 +84,38 @@ nmap <leader>o :BufExplorer<cr>
 " }}}1
 
 " lightline {{{1
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ }
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ }
 " }}}1
 
+" EasyAlign{{{1
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+let g:easy_align_delimiters = {
+      \ '>': { 'pattern': '>>\|=>\|>' },
+      \ '/': {
+      \     'pattern':         '//\+\|/\*\|\*/',
+      \     'delimiter_align': 'l',
+      \     'ignore_groups':   ['!Comment'] },
+      \ ']': {
+      \     'pattern':       '[[\]]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ ')': {
+      \     'pattern':       '[()]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ 'd': {
+      \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+      \     'left_margin':  0,
+      \     'right_margin': 0
+      \   }
+      \ }
+" }}}1
 -------------------------------------------------------------------------------
  vim:ft=vim
