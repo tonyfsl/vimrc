@@ -18,6 +18,7 @@
 " ---------------------------------------------------------------------------
 "                            PLUGIN MANAGEMENT
 " ---------------------------------------------------------------------------
+
 try 
     source ~/vim_plugins
 catch
@@ -31,14 +32,13 @@ let mapleader=','
 
 " Some basic settings
 set nocompatible
-filetype plugin indent on " 开启文件类型检测
-syntax on                 " 开启语法高亮
+filetype plugin indent on      " 开启文件类型检测
+syntax on                      " 开启语法高亮
 
-set clipboard+=unnamed  " 可以直接粘贴剪贴板内容
+set clipboard+=unnamed         " 可以直接粘贴剪贴板内容
 
-set foldenable        " 默认开启代码折叠
-set foldmethod=marker " 折叠类型
-
+set foldenable                 " 默认开启代码折叠
+set foldmethod=marker          " 折叠类型
 " These commands open folds
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
@@ -46,40 +46,40 @@ set backspace=indent,eol,start " 智能回删
 set whichwrap+=h,l,<,>,[,]     " 光标循环
 set virtualedit=block,onemore  " 允许光标出现在最后一个字符的后面
 
-set number         " 显示行号          
-set relativenumber " 显示相对行号      
-set ruler          " 显示标尺信息
+set number                     " 显示行号
+set relativenumber             " 显示相对行号
+set ruler                      " 显示标尺信息
 
-" Tab and indent 
-set expandtab      " Tab 替换为空格
-set smartindent    " 智能缩进
-set softtabstop=4  " Tab 缩进单位
-set shiftwidth=4   " 自动缩进单位
+" Tab and indent
+set expandtab                  " Tab 替换为空格
+set smartindent                " 智能缩进
+set softtabstop=4              " Tab 缩进单位
+set shiftwidth=4               " 自动缩进单位
 
-set encoding=utf-8 " UTF-8 编码
-set t_Co=256       " 开启256色(若终端支持)
+set encoding=utf-8             " UTF-8 编码
+set t_Co=256                   " 开启256色(若终端支持)
 
-set ignorecase     " 搜索忽略大小写
-set incsearch      " 搜索实时高亮
+set ignorecase                 " 搜索忽略大小写
+set incsearch                  " 搜索实时高亮
 set hlsearch
 set smartcase
 
-set linebreak      " 自动折行
-set scrolloff=5    " 屏幕顶/底部保持 5 行文本
-set laststatus=2   " 显示状态栏
-set noshowmode     " 不显示当前状态
-set showcmd        " 显示输入的命令
-set history=200    " 历史命令保存条数
-set autoread       " 自动加载外部修改
-set confirm        " 弹出文件未保存确认
+set linebreak                  " 自动折行
+set scrolloff=5                " 屏幕顶/底部保持 5 行文本
+set laststatus=2               " 显示状态栏
+set noshowmode                 " 不显示当前状态
+set showcmd                    " 显示输入的命令
+set history=200                " 历史命令保存条数
+set autoread                   " 自动加载外部修改
+set confirm                    " 弹出文件未保存确认
 
-set wildmenu       " Vim 命令行提示
+set wildmenu                   " Vim 命令行提示
 " Types of files to ignore when autocompleting things
 set wildignore+=*.o,*.class,*.git,*.svn
 
 " Switch between buffers without having to save first
 set hidden
-set timeoutlen=700      " 操作符待决等待时间
+set timeoutlen=700             " 操作符待决等待时间
 
 " Reload the vim settings immediately after the changing has been made
 " Seems not working perfect while having more than one vimrc files
@@ -181,10 +181,10 @@ endfunction
 " ---------------------------------------------------------------------------
 
 try
-    colorscheme solarized
+    colorscheme PaperColor
 catch
 endtry
-set background=dark
+set background=light
 
 set textwidth=84
 
@@ -204,9 +204,8 @@ if has("win32")
     source $VIMRUNTIME/menu.vim
     language messages zh_CN.utf-8
     set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-"   set guifont=IBM\ Plex\ Mono:h12
-    set guifont=CodeNewRoman\ NF:h12
-    set guifontwide=YaHei\ Consolas\ Hybrid:h12
+    set guifont=MesloLGM_NF:h12
+    set guifontwide=Microsoft\ Yahei\ Mono:h12
     set lines=35 columns=88
 endif
 

@@ -1,24 +1,32 @@
-"----------------------------------------------------------------------------
+-"---------------------------------------------------------------------------
 "                                   vim plugins
 "----------------------------------------------------------------------------
+
+let mapleader=','         
+set encoding=utf-8
+scriptencoding utf-8
+if !has('gui_running')
+  set t_Co=256
+endif
 
 call plug#begin('~/.vim/plugged')
 
 " Plug 'VundleVim/Vundle.vim'
 " Plug 'godlygeek/tabular'
-" Plug 'itchyny/lightline.vim'
+" Plug 'ryanoasis/vim-devicons'     
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/vim-easy-align'
+Plug 'klen/python-mode'
 Plug 'plasticboy/vim-markdown'
 Plug 'raimondi/delimitmate' 
-Plug 'ryanoasis/vim-devicons'     
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 
 call plug#end()    
@@ -28,7 +36,6 @@ call plug#end()
 "                                plugin settings
 "----------------------------------------------------------------------------
 
-let mapleader=','         
 
 " NERDTree {{{1
 nnoremap <Leader>nn :NERDTreeToggle<CR>
@@ -43,18 +50,25 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1         " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " }}}1
- 	
+
 " vim-airline {{{1
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" let g:airline#extensions#tabline#enabled=1
+" let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#left_sep = ''
+" let g:airline#extensions#tabline#left_alt_sep = ''
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.maxlinenr = ''
+" let g:airline_symbols.whitespace = 'Ξ'
+" let g:airline_symbols.paste = '∥'
 
 " vim-airline-themes 
-let g:airline_theme='solarized'
+" let g:airline_theme='solarized'
 " }}}1
 
 " delimitmate {{{1
@@ -84,38 +98,81 @@ nmap <leader>o :BufExplorer<cr>
 " }}}1
 
 " lightline {{{1
-" let g:lightline = {
-"       \ 'colorscheme': 'solarized',
-"       \ }
-" }}}1
+
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor_light',
+      \ 'component': {
+      \   'lineinfo': ' %3l:%-2v',
+      \ },
+      \ 'component_function': {
+      \   'readonly': 'LightlineReadonly',
+      \   'fugitive': 'LightlineFugitive'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+function! LightlineReadonly()
+    return &readonly ? '' : ''
+endfunction
+function! LightlineFugitive()
+    if exists('*fugitive#head')
+        let branch = fugitive#head()
+        return branch !=# '' ? ''.branch : ''
+    endif
+    return ''
+endfunction
+
+}}}1
 
 " EasyAlign{{{1
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-let g:easy_align_delimiters = {
-      \ '>': { 'pattern': '>>\|=>\|>' },
-      \ '/': {
-      \     'pattern':         '//\+\|/\*\|\*/',
-      \     'delimiter_align': 'l',
-      \     'ignore_groups':   ['!Comment'] },
-      \ ']': {
-      \     'pattern':       '[[\]]',
-      \     'left_margin':   0,
-      \     'right_margin':  0,
-      \     'stick_to_left': 0
-      \   },
-      \ ')': {
-      \     'pattern':       '[()]',
-      \     'left_margin':   0,
-      \     'right_margin':  0,
-      \     'stick_to_left': 0
-      \   },
-      \ 'd': {
-      \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-      \     'left_margin':  0,
-      \     'right_margin': 0
-      \   }
-      \ }
+
+" let g:easy_align_delimiters = {
+"       \ '>': { 'pattern': '>>\|=>\|>' },
+"       \ '/': {
+"       \     'pattern':         '//\+\|/\*\|\*/',
+"       \     'delimiter_align': 'l',
+"       \     'ignore_groups':   ['!Comment'] },
+"       \ ']': {
+"       \     'pattern':       '[[\]]',
+"       \     'left_margin':   0,
+"       \     'right_margin':  0,
+"       \     'stick_to_left': 0
+"       \   },
+"       \ ')': {
+"       \     'pattern':       '[()]',
+"       \     'left_margin':   0,
+"       \     'right_margin':  0,
+"       \     'stick_to_left': 0
+"       \   },
+"       \ 'd': {
+"       \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+"       \     'left_margin':  0,
+"       \     'right_margin': 0
+"       \   }
+"       \ }
+
+" }}}1
+
+" python-mode{{{1
+let g:pymode = 1
+let g:pymode_warnings = 1
+let g:pymode_paths = []
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options = 1
+let g:pymode_options_max_line_length = 79
+let g:pymode_options_colorcolumn = 1
+let g:pymode_quickfix_minheight = 3
+let g:pymode_quickfix_maxheight = 6
+let g:pymode_python = 'python3'
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:pymode_motion = 1
+let g:pymode_doc = 1
+let g:pymode_doc_bind = 'K'
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
 " }}}1
 -------------------------------------------------------------------------------
  vim:ft=vim
