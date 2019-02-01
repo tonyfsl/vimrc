@@ -14,26 +14,44 @@
 "     -> Visual Setting
 " ---------------------------------------------------------------------------
 
+" ==COMMON AND NECESSARY SETTINGS==
+
+set nocompatible
+
+" 开启语法高亮
+syntax on                      
+
+set encoding=utf-8
+scriptencoding utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+
+" Use Unix as the standard file type
+set fileformats=unix,dos,mac
+ 	
+" 检测文件类型
+filetype on
+" 针对不同的文件类型采用不同的缩进格式
+filetype indent on
+" 允许插件
+filetype plugin on
+
+let mapleader=','         
+
 
 " ---------------------------------------------------------------------------
 "                            PLUGIN MANAGEMENT
 " ---------------------------------------------------------------------------
 
-try 
+if filereadable(expand("~/vim_plugins"))
     source ~/vim_plugins
-catch
-endtry
+endif
 
 " ---------------------------------------------------------------------------
 "                            GENERAL SETTINGS {{{1
 " ---------------------------------------------------------------------------
 
-let mapleader=','         
-
-" Some basic settings
-set nocompatible
-filetype plugin indent on      " 开启文件类型检测
-syntax on                      " 开启语法高亮
 
 set clipboard+=unnamed         " 可以直接粘贴剪贴板内容
 
@@ -56,7 +74,6 @@ set smartindent                " 智能缩进
 set softtabstop=4              " Tab 缩进单位
 set shiftwidth=4               " 自动缩进单位
 
-set encoding=utf-8             " UTF-8 编码
 set t_Co=256                   " 开启256色(若终端支持)
 
 set ignorecase                 " 搜索忽略大小写
@@ -181,10 +198,10 @@ endfunction
 " ---------------------------------------------------------------------------
 
 try
-    colorscheme PaperColor
+    colorscheme gruvbox
 catch
 endtry
-set background=light
+set background=dark
 
 set textwidth=84
 
@@ -203,9 +220,8 @@ if has("win32")
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
     language messages zh_CN.utf-8
-    set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
     set guifont=MesloLGM_NF:h12
-    set guifontwide=Microsoft\ Yahei\ Mono:h12
+    set guifontwide=YaHei\ Consolas\ Hybrid:h12
     set lines=35 columns=88
 endif
 

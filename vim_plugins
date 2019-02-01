@@ -2,32 +2,22 @@
 "                                   vim plugins
 "----------------------------------------------------------------------------
 
-let mapleader=','         
-set encoding=utf-8
-scriptencoding utf-8
-if !has('gui_running')
-  set t_Co=256
-endif
-
 call plug#begin('~/.vim/plugged')
 
-" Plug 'VundleVim/Vundle.vim'
-" Plug 'godlygeek/tabular'
-" Plug 'ryanoasis/vim-devicons'     
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'junegunn/vim-easy-align'
-Plug 'klen/python-mode'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'plasticboy/vim-markdown'
 Plug 'raimondi/delimitmate' 
+Plug 'ryanoasis/vim-devicons'     
 Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
+Plug 'yggdroot/leaderf'
+Plug 'tomtom/tcomment_vim'
 
 call plug#end()    
 
@@ -51,42 +41,8 @@ let g:NERDTreeHighlightFolders = 1         " enables folder icon highlighting us
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " }}}1
 
-" vim-airline {{{1
-" let g:airline#extensions#tabline#enabled=1
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#left_sep = ''
-" let g:airline#extensions#tabline#left_alt_sep = ''
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.maxlinenr = ''
-" let g:airline_symbols.whitespace = 'Ξ'
-" let g:airline_symbols.paste = '∥'
-
-" vim-airline-themes 
-" let g:airline_theme='solarized'
-" }}}1
-
 " delimitmate {{{1
 let delimitMate_matchpairs = "(:),[:],{:}"
-" }}}1
-
-" ctrlp {{{1
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'rc'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ 'link': 'some_bad_symbolic_links',
-    \ }
 " }}}1
 
 " bufexplorer {{{1
@@ -100,13 +56,18 @@ nmap <leader>o :BufExplorer<cr>
 " lightline {{{1
 
 let g:lightline = {
-      \ 'colorscheme': 'PaperColor_light',
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
       \ 'component': {
       \   'lineinfo': ' %3l:%-2v',
       \ },
       \ 'component_function': {
       \   'readonly': 'LightlineReadonly',
-      \   'fugitive': 'LightlineFugitive'
+      \   'fugitive': 'LightlineFugitive',
+      \   'cocstatus': 'coc#status'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
@@ -114,65 +75,121 @@ let g:lightline = {
 function! LightlineReadonly()
     return &readonly ? '' : ''
 endfunction
-function! LightlineFugitive()
-    if exists('*fugitive#head')
-        let branch = fugitive#head()
-        return branch !=# '' ? ''.branch : ''
-    endif
-    return ''
-endfunction
-
-}}}1
+" }}}1
 
 " EasyAlign{{{1
-xmap ga <Plug>(EasyAlign)
+vmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
-" let g:easy_align_delimiters = {
-"       \ '>': { 'pattern': '>>\|=>\|>' },
-"       \ '/': {
-"       \     'pattern':         '//\+\|/\*\|\*/',
-"       \     'delimiter_align': 'l',
-"       \     'ignore_groups':   ['!Comment'] },
-"       \ ']': {
-"       \     'pattern':       '[[\]]',
-"       \     'left_margin':   0,
-"       \     'right_margin':  0,
-"       \     'stick_to_left': 0
-"       \   },
-"       \ ')': {
-"       \     'pattern':       '[()]',
-"       \     'left_margin':   0,
-"       \     'right_margin':  0,
-"       \     'stick_to_left': 0
-"       \   },
-"       \ 'd': {
-"       \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-"       \     'left_margin':  0,
-"       \     'right_margin': 0
-"       \   }
-"       \ }
-
+" 
 " }}}1
 
-" python-mode{{{1
-let g:pymode = 1
-let g:pymode_warnings = 1
-let g:pymode_paths = []
-let g:pymode_trim_whitespaces = 1
-let g:pymode_options = 1
-let g:pymode_options_max_line_length = 79
-let g:pymode_options_colorcolumn = 1
-let g:pymode_quickfix_minheight = 3
-let g:pymode_quickfix_maxheight = 6
-let g:pymode_python = 'python3'
-let g:pymode_indent = 1
-let g:pymode_folding = 1
-let g:pymode_motion = 1
-let g:pymode_doc = 1
-let g:pymode_doc_bind = 'K'
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
+" leaderF{{{1
+let g:Lf_WildIgnore = {
+        \ 'dir': ['.svn','.git','.hg'],
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so']
+        \}
+let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 " }}}1
--------------------------------------------------------------------------------
- vim:ft=vim
+
+" coc.nvim{{{1
+" Better display for messages
+set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" }}}1
+"-------------------------------------------------------------------------------
+" vim:ft=vim
