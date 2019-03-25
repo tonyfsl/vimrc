@@ -1,5 +1,5 @@
 " ---------------------------------------------------------------------------
-"  Author:tonyfsl   <tonyviper@gmail.com>
+"  Author:tonyfsl   <tonyviper at gmail.com>
 "  The primary version was completed on May 27th 2018
 "
 "  Some functions were copied from dofy/7th-vim, Derek Wyatt and amix/vimrc
@@ -14,12 +14,12 @@
 "     -> Visual Setting
 " ---------------------------------------------------------------------------
 
-" ==COMMON AND NECESSARY SETTINGS==
+
+" >>>>>>> COMMON AND NECESSARY SETTINGS <<<<<<< {{{1
 
 set nocompatible
 
-" 开启语法高亮
-syntax on                      
+syntax on                      " 开启语法高亮
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -30,28 +30,22 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 " Use Unix as the standard file type
 set fileformats=unix,dos,mac
  	
-" 检测文件类型
-filetype on
-" 针对不同的文件类型采用不同的缩进格式
-filetype indent on
-" 允许插件
-filetype plugin on
+filetype plugin indent on 
 
 let mapleader=','         
 
+" }}}1
 
-" ---------------------------------------------------------------------------
-"                            PLUGIN MANAGEMENT
-" ---------------------------------------------------------------------------
+
+" >>>>>>> PLUGIN MANAGEMENT <<<<<<< {{{1
 
 if filereadable(expand("~/vim_plugins"))
     source ~/vim_plugins
 endif
+" }}}1
 
-" ---------------------------------------------------------------------------
-"                            GENERAL SETTINGS {{{1
-" ---------------------------------------------------------------------------
 
+" >>>>>>> GENERAL SETTINGS <<<<<<< {{{1
 
 set clipboard+=unnamed         " 可以直接粘贴剪贴板内容
 
@@ -105,9 +99,9 @@ set timeoutlen=700             " 操作符待决等待时间
 " endif
 " }}}1	
 
-" ---------------------------------------------------------------------------
-"                            KEY MAPPING {{{1
-" ---------------------------------------------------------------------------
+
+" >>>>>>> KEY MAPPING <<<<<<< {{{1
+
 " Change the basic save and quit keys
 nmap <Leader>q :q<CR>
 nmap <Leader>w :w<CR>
@@ -191,11 +185,11 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
+
 " }}}1	
 
-" ---------------------------------------------------------------------------
-"                            VISUAL SETTINGS {{{1
-" ---------------------------------------------------------------------------
+
+" >>>>>>> VISUAL SETTINGS <<<<<<< {{{1
 
 try
     colorscheme gruvbox
@@ -231,4 +225,5 @@ endif
 
 " Set up the GUI cursor to look nice
 set guicursor=n-v-c:block-Cursor-blinkon0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+
 " }}}1	
