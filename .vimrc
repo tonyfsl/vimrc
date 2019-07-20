@@ -206,8 +206,9 @@ set guioptions-=L
 set guioptions-=r
 set guioptions-=b
 
-" Use the non-GUI tab pages line
+" Use non-GUI tab pages line and always show tabline
 set guioptions-=e
+set showtabline=2
 
 " Config the windows visual setting
 if has("win32")

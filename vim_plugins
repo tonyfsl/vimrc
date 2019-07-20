@@ -19,6 +19,9 @@ Plug 'tpope/vim-surround'
 Plug 'yggdroot/leaderf'
 Plug 'tomtom/tcomment_vim'
 Plug 'roman/golden-ratio'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'mengelbrecht/lightline-bufferline'
 
 call plug#end()    
 
@@ -73,9 +76,21 @@ let g:lightline = {
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
+" let g:lightline.tabline = {
+"     \ 'left': [ [ 'tabs' ] ],
+"     \ 'right': [ [ 'close' ] ] }
 function! LightlineReadonly()
     return &readonly ? '' : ''
 endfunction
+
+" lightline bufferline settings
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#unnamed      = '[No Name]'
+
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
 " }}}1
 
 " EasyAlign{{{1
@@ -192,5 +207,15 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " }}}1
+
+" ultisnips{{{1
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-d>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+"}}}1
 "-------------------------------------------------------------------------------
 " vim:ft=vim
